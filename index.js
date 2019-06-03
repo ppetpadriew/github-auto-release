@@ -11,7 +11,7 @@ app.post('/api', (req, res) => {
     }
 
     if (req.body.action !== 'created' || !req.body.release) {
-        res.status(200).send("Skipped. Action not matched: " + req.body.action);
+        return res.status(200).send("Skipped. Action not matched: " + req.body.action);
     }
 
     childProcess.exec(process.env.RUBBER_ME_HOOK_API_DEPLOY_SCRIPT, function (err, stdout, stderr) {
@@ -20,7 +20,7 @@ app.post('/api', (req, res) => {
             console.error(err);
             return res.send(500);
         }
-        res.status(200).send("OK");
+        return res.status(200).send("OK");
     });
 })
 
