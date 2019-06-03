@@ -10,7 +10,7 @@ app.post('/api', (req, res) => {
         return res.status(401).send('Mismatched signatures');
     }
 
-    if (req.body.action !== 'created' || !req.body.release) {
+    if (req.body.action !== 'published' || !req.body.release) {
         return res.status(200).send("Skipped. Action not matched: " + req.body.action);
     }
 
