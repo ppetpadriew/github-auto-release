@@ -11,7 +11,8 @@ app.post('/api', (req, res) => {
     }
 
     if (req.body.action !== 'published' || !req.body.release) {
-        return res.status(200).send("Skipped. Action not matched: " + req.body.action);
+        console.log("Skipped. Action not matched: " + req.body.action);
+        return res.send(200);
     }
 
     childProcess.exec(process.env.RUBBER_ME_HOOK_API_DEPLOY_SCRIPT, function (err, stdout, stderr) {
@@ -20,7 +21,7 @@ app.post('/api', (req, res) => {
             console.error(err);
             return res.send(500);
         }
-        return res.status(200).send("OK");
+        return res.send(200);
     });
 })
 
