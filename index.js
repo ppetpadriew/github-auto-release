@@ -10,13 +10,17 @@ app.post('/api', (req, res) => {
         return res.status(401).send('Mismatched signatures');
     }
 
+    if (req.body.action !== 'created' || !req.body.release) {
+        res.status(200).send("Skipped. Action not matched: " + req.body.action);
+    }
+
     childProcess.exec(process.env.RUBBER_ME_HOOK_API_DEPLOY_SCRIPT, function (err, stdout, stderr) {
         console.log(stdout);
         if (err) {
             console.error(err);
             return res.send(500);
         }
-        res.send(200);
+        res.status(200).send("OK");
     });
 })
 
