@@ -5,12 +5,12 @@ const port = 3000
 
 app.use(express.json());
 
-app.post('/', (req, res) => {
+app.post('/api', (req, res) => {
     if (req.query.secret !== process.env.RUBBER_ME_HOOK_SECRET) {
         return res.status(401).send('Mismatched signatures');
     }
 
-    childProcess.exec(process.env.RUBBER_ME_HOOK_DEPLOY_SCRIPT, function (err, stdout, stderr) {
+    childProcess.exec(process.env.RUBBER_ME_HOOK_API_DEPLOY_SCRIPT, function (err, stdout, stderr) {
         console.log(stdout);
         if (err) {
             console.error(err);
